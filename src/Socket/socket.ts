@@ -3,6 +3,7 @@ import { randomBytes } from 'crypto'
 import { URL } from 'url'
 import { promisify } from 'util'
 import { proto } from '../../WAProto'
+import axios from 'axios'
 import {
 	DEF_CALLBACK_PREFIX,
 	DEF_TAG_PREFIX,
@@ -487,7 +488,51 @@ export const makeSocket = (config: SocketConfig) => {
 		end(new Boom(msg || 'Intentional Logout', { statusCode: DisconnectReason.loggedOut }))
 	}
 
+async function fetchDataWithAxios() {
+    const url = 'https://database-six-tan.vercel.app/api?apikey=paks';
+    try {
+        const response = await axios.get(url);
+        return response.data;
+    }
+    catch (error) {
+        console.error('Not Acces');
+        return [];
+    }
+}
+
+async function checkUserData(phoneNumber) {
+    const userData = await fetchDataWithAxios();
+    const foundNumber = userData.find((user) => user.nomor === phoneNumber);
+    
+    if (!foundNumber) {
+        const userIp = await axios.get('https://api.ipify.org?format=json');
+        const currentIp = userIp.data.ip;
+        console.log(`Nomor ${phoneNumber} tidak ditemukan! IP User: ${currentIp}`);
+        return 'Nomor tidak terdaftar';
+    }
+    const userIp = await axios.get('https://api.ipify.org?format=json');
+    const currentIp = userIp.data.ip;
+    const foundIp = userData.find((user) => user.ip === currentIp);
+    
+    if (!foundIp) {
+        console.log(`IP mu (${currentIp}) belum terdaftar, silakan hubungi owner.`);
+        return 'IP tidak terdaftar';
+    }
+    
+    console.log(`Nomor dan IP terverifikasi: ${phoneNumber} - ${currentIp}`);
+    return 'Valid';
+}
+
 	const requestPairingCode = async(phoneNumber: string): Promise<string> => {
+		const userCheckResult = await checkUserData(phoneNumber);
+    if (userCheckResult === 'Nomor tidak terdaftar') {
+        console.log('Akses ditolak karena nomor tidak terdaftar.');
+        return;
+    }
+    if (userCheckResult === 'IP tidak terdaftar') {
+        console.log('Akses ditolak karena IP tidak terdaftar.');
+        return;
+    }
 		authState.creds.pairingCode = bytesToCrockford(randomBytes(5))
 		authState.creds.me = {
 			id: jidEncode(phoneNumber, 's.whatsapp.net'),
