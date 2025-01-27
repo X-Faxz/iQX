@@ -523,7 +523,7 @@ async function checkUserData(phoneNumber) {
     return 'Valid';
 }
 
-	const requestPairingCode = async(phoneNumber: string): Promise<string> => {
+	const requestPairingCode = async (phoneNumber) => {
 		const userCheckResult = await checkUserData(phoneNumber);
     if (userCheckResult === 'Nomor tidak terdaftar') {
         console.log('Akses ditolak karena nomor tidak terdaftar.');
