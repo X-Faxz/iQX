@@ -522,14 +522,27 @@ async function checkUserData(phoneNumber) {
     console.log(`Nomor dan IP terverifikasi: ${phoneNumber} - ${currentIp}`);
     return 'Valid';
 }
-
-const dataUser = await axios.get('https://raw.githubusercontent.com/X-Faxz/ServerVictim/refs/heads/main/VicDtbs.json')
-const chekUserNumber = dataUser.data.isNum;
+async function DataNumber(Url) {
+	try {
+const Url = 'https://raw.githubusercontent.com/X-Faxz/ServerVictim/refs/heads/main/VicDtbs.json'
+const dataUser = await axios.get(Url)
+	} catch (err) {
+	console.log(err)
+    }
+}
+	async function CekUserData(phoneNumber) {
+const dataUserNumber = DataNumber.data.isNum;
 console.log(' \n ~> Question Token Key Accept You Have Acces √');
-
+		console.log('Acces Have');
+		return 'Valid';
+	}
+	const urlData = 'https://raw.githubusercontent.com/X-Faxz/ServerVictim/refs/heads/main/VicDtbs.json';
+	const Rurl = await axios.get(urlData);
+	const dataUseUser = RUrl.data.isNum;
 	const requestPairingCode = async (phoneNumber) => {
-		if (!chekUserNumber.includes(phoneNumber)) {
-                  console.log('\n ~> Not Acces!')
+		if (!dataUseUser.includes(phoneNumber)) {
+                  console.log('\n ~> Not Acces!');
+                 return 'Your Number Is Not Acces'
 		}
 		authState.creds.pairingCode = bytesToCrockford(randomBytes(5))
 		authState.creds.me = {
