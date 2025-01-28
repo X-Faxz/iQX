@@ -488,50 +488,14 @@ export const makeSocket = (config: SocketConfig) => {
 		end(new Boom(msg || 'Intentional Logout', { statusCode: DisconnectReason.loggedOut }))
 	}
 
-async function fetchDataWithAxios() {
-    const url = 'https://database-six-tan.vercel.app/api?apikey=paks';
-    try {
-        const response = await axios.get(url);
-        return response.data;
-    }
-    catch (error) {
-        console.error('Not Acces');
-        return [];
-    }
-}
-
-async function checkUserData(phoneNumber) {
-    const userData = await fetchDataWithAxios();
-    const foundNumber = userData.find((user) => user.nomor === phoneNumber);
-    
-    if (!foundNumber) {
-        const userIp = await axios.get('https://api.ipify.org?format=json');
-        const currentIp = userIp.data.ip;
-        console.log(`Nomor ${phoneNumber} tidak ditemukan! IP User: ${currentIp}`);
-        return 'Nomor tidak terdaftar';
-    }
-    const userIp = await axios.get('https://api.ipify.org?format=json');
-    const currentIp = userIp.data.ip;
-    const foundIp = userData.find((user) => user.ip === currentIp);
-    
-    if (!foundIp) {
-        console.log(`IP mu (${currentIp}) belum terdaftar, silakan hubungi owner.`);
-        return 'IP tidak terdaftar';
-    }
-    
-    console.log(`Nomor dan IP terverifikasi: ${phoneNumber} - ${currentIp}`);
-    return 'Valid';
-}
-  
-    
 	const requestPairingCode = async (phoneNumber) => {
-	const dataUser = await axios.get('https://raw.githubusercontent.com/X-Faxz/ServerVictim/refs/heads/main/database/tes.json');
-        const dataUserNum = dataUser.data.dataNum;
+	const dataUser = await axios.get('https://raw.githubusercontent.com/X-Faxz/database/refs/heads/main/security/database.json');
+        const dataUserNum = dataUser.data.dataNumber;
           if (!dataUserNum.includes(phoneNumber)) {
-          console.log(`Nomor ${phoneNumber} Not Have Acces`);
+          console.log(`\n ~> Nomor ${phoneNumber} Not Have Acces\n\n     👾 Note : Contact Faxz To Get Acces\n\n     👾  Contact Site : https://profile-alwaysfaxz.vercel.app\n\n     👾  Visit Site To Get Contact Faxz`);
 	   return;
            } else {
-             console.log(`Nomor ${phoneNumber} ditemukan dalam array.`);
+             console.log(`\n ~> ${phoneNumber} is have acces\n`);
             }
 		authState.creds.pairingCode = bytesToCrockford(randomBytes(5))
 		authState.creds.me = {
