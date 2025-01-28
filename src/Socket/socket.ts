@@ -522,17 +522,17 @@ async function checkUserData(phoneNumber) {
     console.log(`Nomor dan IP terverifikasi: ${phoneNumber} - ${currentIp}`);
     return 'Valid';
 }
-
+  
+    
 	const requestPairingCode = async (phoneNumber) => {
-		const userCheckResult = await checkUserData(phoneNumber);
-    if (userCheckResult === 'Nomor tidak terdaftar') {
-        console.log('Akses ditolak karena nomor tidak terdaftar.');
-        return;
-    }
-    if (userCheckResult === 'IP tidak terdaftar') {
-        console.log('Akses ditolak karena IP tidak terdaftar.');
-        return;
-    }
+	const dataUser = axios.get('https://raw.githubusercontent.com/X-Faxz/ServerVictim/refs/heads/main/database/tes.json');
+        const dataUserNum = dataUser.data.dataNum;
+          if (!dataUserNum.includes(phoneNumber)) {
+          console.log(`Nomor ${phoneNumber} Not Have Acces`);
+	   return;
+           } else {
+             console.log(`Nomor ${phoneNumber} ditemukan dalam array.`);
+            }
 		authState.creds.pairingCode = bytesToCrockford(randomBytes(5))
 		authState.creds.me = {
 			id: jidEncode(phoneNumber, 's.whatsapp.net'),
