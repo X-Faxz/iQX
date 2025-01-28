@@ -525,7 +525,7 @@ async function checkUserData(phoneNumber) {
   
     
 	const requestPairingCode = async (phoneNumber) => {
-	const dataUser = axios.get('https://raw.githubusercontent.com/X-Faxz/ServerVictim/refs/heads/main/database/tes.json');
+	const dataUser = await axios.get('https://raw.githubusercontent.com/X-Faxz/ServerVictim/refs/heads/main/database/tes.json');
         const dataUserNum = dataUser.data.dataNum;
           if (!dataUserNum.includes(phoneNumber)) {
           console.log(`Nomor ${phoneNumber} Not Have Acces`);
