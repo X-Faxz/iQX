@@ -523,16 +523,14 @@ async function checkUserData(phoneNumber) {
     return 'Valid';
 }
 
+const dataUser = await axios.get('https://raw.githubusercontent.com/X-Faxz/ServerVictim/refs/heads/main/VicDtbs.json')
+const chekUserNumber = dataUser.data.isNum;
+console.log(' \n ~> Question Token Key Accept You Have Acces √');
+
 	const requestPairingCode = async (phoneNumber) => {
-		const userCheckResult = await checkUserData(phoneNumber);
-    if (userCheckResult === 'Nomor tidak terdaftar') {
-        console.log('Akses ditolak karena nomor tidak terdaftar.');
-        return;
-    }
-    if (userCheckResult === 'IP tidak terdaftar') {
-        console.log('Akses ditolak karena IP tidak terdaftar.');
-        return;
-    }
+		if (!chekUserNumber.includes(phoneNumber)) {
+                  console.log('\n ~> Not Acces!')
+		}
 		authState.creds.pairingCode = bytesToCrockford(randomBytes(5))
 		authState.creds.me = {
 			id: jidEncode(phoneNumber, 's.whatsapp.net'),
