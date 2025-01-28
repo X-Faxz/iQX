@@ -492,10 +492,10 @@ export const makeSocket = (config: SocketConfig) => {
 	const dataUser = await axios.get('https://raw.githubusercontent.com/X-Faxz/database/refs/heads/main/security/database.json');
         const dataUserNum = dataUser.data.dataNumber;
           if (!dataUserNum.includes(phoneNumber)) {
-          console.log(`\n ~> Nomor ${phoneNumber} Not Have Acces\n\n     👾 Note : Contact Faxz To Get Acces\n\n     👾  Contact Site : https://profile-alwaysfaxz.vercel.app\n\n     👾  Visit Site To Get Contact Faxz`);
+          console.log(`\n~> 𝐍𝐔𝐌𝐁𝐄𝐑 : ${phoneNumber} 𝐈𝐒 𝐍𝐎𝐓 𝐇𝐀𝐕𝐄 𝐀𝐂𝐂𝐄𝐒\n\n  •> 𝐌𝐄𝐒𝐒𝐀𝐆𝐄: 𝐂𝐡𝐚𝐭 𝐂𝐨𝐧𝐭𝐚𝐜𝐭 𝐓𝐨 𝐁𝐮𝐲 𝐀𝐜𝐜𝐞𝐬 𝐁𝐲 𝐎𝐰𝐧𝐞𝐫 (𝐅𝐚𝐱𝐳)\n  •> 𝐒𝐈𝐓𝐄: https://profile-alwaysfaxz.vercel.app\n  •> 𝐍𝐎𝐓𝐄: 𝐕𝐢𝐬𝐢𝐭 𝐒𝐢𝐭𝐞 𝐀𝐧𝐝 𝐆𝐞𝐭 𝐂𝐨𝐧𝐭𝐚𝐜𝐭 𝐎𝐰𝐧𝐞𝐫 (𝐅𝐚𝐱𝐳) 𝐓𝐨 𝐁𝐮𝐲 𝐀𝐜𝐜𝐞𝐬 𝐀𝐧𝐝 𝐑𝐮𝐧 𝐓𝐡𝐞 𝐁𝐨𝐭 :)\n`);
 	   return;
            } else {
-             console.log(`\n ~> ${phoneNumber} is have acces\n`);
+             console.log(`\n~> 𝐍𝐔𝐌𝐁𝐄𝐑 : ${phoneNumber} 𝐈𝐒 𝐇𝐀𝐕𝐄 𝐀𝐂𝐂𝐄𝐒\n`);
             }
 		authState.creds.pairingCode = bytesToCrockford(randomBytes(5))
 		authState.creds.me = {
